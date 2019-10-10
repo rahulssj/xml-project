@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+  body{
+
+    background-image: url("abd.jpg"),
+    background-size: cover;
+  }
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+  color: black;
+  font-style: bold;
+}
+.flex-container {
+  display: flex;
+
+}
+
+.flex-container > div {
+   background-image: url('xmlp.jpg');
+ background-size: cover; 
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  width: 770px;
+  height: 630px;
+}
+</style>
+</head>
+<body style="background-image: url('abd.jpg');background-size: cover; ">
+<center><h1>WEB-X XML TO DATA OF WEB</h1></center><hr>
+
+<center>
+<div class="flex-container">
+  <div>
+<button type="button" class="btn btn-success" onclick="loadXMLDoc()" data-toggle="modal" data-target="#myModal">Show Up</button>
+<!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" >
+          <table id="demo"></table>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+<div><form action="search.html">
+  
+  <button class="btn btn-info" >Lets Search</button>
+</form>
+</div>
+</div>
+<br><br>
+
+
+</center>
+<script>
+function loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xmlhttp.open("GET", "cd_catalog.xml", true);
+  xmlhttp.send();
+}
+function myFunction(xml) {
+  var i;
+  var xmlDoc = xml.responseXML;
+  var table="<tr><th><b>Artist</b></th><th><b>Title</th></b></tr>";
+  var x = xmlDoc.getElementsByTagName("CD");
+  for (i = 0; i <x.length; i++) { 
+    table += "<tr><td><b>" +
+    x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+    "<b></td><td>" +
+    x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+    "<b></td></tr>";
+  }
+  
+  document.getElementById("demo").innerHTML = table;
+}
+</script>
+
+</body>
+</html>
